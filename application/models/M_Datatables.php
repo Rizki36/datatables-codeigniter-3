@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-
+## update => https://github.com/Rizki36/datatables-codeigniter-3/blob/master/application/models/M_Datatables.php
+## usage => https://github.com/Rizki36/datatables-codeigniter-3/blob/master/application/controllers/Datatables.php
 class M_Datatables extends CI_Model
 {
 
