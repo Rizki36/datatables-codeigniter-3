@@ -18,6 +18,12 @@ class M_Datatables extends CI_Model
         $table = $postData['table'];
         $selectedColumn = isset($postData['selected_column']) ? $postData['selected_column'] : '*';
 
+        ## custom order
+        $useOrderByDatatables = isset($postData['use_order_by_datatable']) ? $postData['use_order_by_datatable'] : true; // disable order by datatable
+        $useCustomOrder = isset($postData['use_custom_order']) ? $postData['use_custom_order'] : false; // use it if you want custom order
+        $customColumnNameOrder = isset($postData['custom_column_name_order']) ? $postData['custom_column_name_order'] : '';
+        $customColumnSortOrder = isset($postData['custom_column_sort_order']) ? $postData['custom_column_sort_order'] : '';
+
         ## Read value
         $draw = $postData['draw'];
         $start = $postData['start'];
@@ -121,7 +127,12 @@ class M_Datatables extends CI_Model
         if ($whereQuery != '') {
             $this->db->where($whereQuery);
         }
-        $this->db->order_by($columnName, $columnSortOrder);
+        if ($useCustomOrder) {
+            $this->db->order_by($customColumnNameOrder, $customColumnSortOrder);
+        }
+        if ($useOrderByDatatables) {
+            $this->db->order_by($columnName, $columnSortOrder);
+        }
         $this->db->limit($rowperpage, $start);
         $records = $this->db->get($table)->result();
 
